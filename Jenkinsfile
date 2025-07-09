@@ -3,7 +3,7 @@ pipeline {
 
   environment {
     SERVICE_NAME = 'react-template'
-    SERVICE_PORT = '8085'
+    SERVICE_PORT = '8080'
   }
 
   stages {
