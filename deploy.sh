@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SERVICE_NAME="react-template"
-SERVICE_PORT=8080
+SERVICE_PORT=3030
 
 docker rm -f $SERVICE_NAME || true
 docker build -t $SERVICE_NAME .
