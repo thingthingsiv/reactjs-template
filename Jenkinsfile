@@ -13,6 +13,13 @@ pipeline {
       }
     }
 
+    stage('Set Script Permission') {
+      steps {
+        sh 'chmod +x ./deploy.sh'
+        sh 'chmod +x ./configure-nginx.sh'
+      }
+    }
+
     stage('Build & Run') {
       steps {
         sh './deploy.sh'
