@@ -3,7 +3,10 @@
 SERVICE_NAME=$1
 SERVICE_PORT=$2
 
-cat <<EOF | sudo tee /etc/nginx/sites-available/${SERVICE_NAME}.conf
+CONF_PATH="/etc/nginx/sites-available/${SERVICE_NAME}.conf"
+
+# Generate reverse proxy config
+cat <<EOF | sudo /usr/bin/tee $CONF_PATH
 server {
     listen 80;
     server_name ${SERVICE_NAME}.sivthingthing.xyz;
@@ -16,5 +19,6 @@ server {
 }
 EOF
 
-sudo ln -sf /etc/nginx/sites-available/${SERVICE_NAME}.conf /etc/nginx/sites-enabled/
-sudo nginx -t && sudo systemctl reload nginx
+sudo ln -sf $CONF_PATH /etc/nginx/sites-enabled/
+sudo /usr/sbin/nginx -t
+sudo /bin/systemctl reload nginx
