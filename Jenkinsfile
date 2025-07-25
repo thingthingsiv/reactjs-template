@@ -1,3 +1,5 @@
+@Library('my-shared-lib') _
+
 pipeline {
   agent any
 
@@ -15,14 +17,24 @@ pipeline {
 
     stage('Set Script Permission') {
       steps {
-        sh 'chmod +x ./deploy.sh'
-        sh 'chmod +x ./configure-nginx.sh'
+        script {
+          // Assuming your shared lib has a function to set permission
+          setScriptPermission(['deploy.sh', 'configure-nginx.sh'])
+          // Or if you want to keep shell, just leave it here
+          // sh 'chmod +x ./deploy.sh'
+          // sh 'chmod +x ./configure-nginx.sh'
+        }
       }
     }
 
     stage('Build & Run') {
       steps {
-        sh './deploy.sh'
+        script {
+          // Assuming your shared lib has a function to run deploy
+          runDeployScript('./deploy.sh')
+          // Or keep shell call directly
+          // sh './deploy.sh'
+        }
       }
     }
   }
